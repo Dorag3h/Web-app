@@ -1,39 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- تعیین نوع کاراکترها (برای پشتیبانی از فارسی) -->
   <meta charset="UTF-8">
-  <title>اولین وب‌اپ من</title>
 
-  <!-- لود کردن JsSDK ایتا -->
+  <!-- عنوان صفحه -->
+  <title>پنل کاربری</title>
+
+  <!-- لود کردن فایل JsSDK ایتا -->
   <script src="https://developer.eitaa.com/eitaa-web-app.js"></script>
+
+  <!-- استایل‌های ظاهری صفحه -->
+  <style>
+    /* تنظیمات کلی بدنه صفحه */
+    body {
+      font-family: sans-serif;      /* فونت ساده */
+      text-align: center;           /* وسط‌چین کردن متن */
+      padding: 20px;                /* فاصله از لبه‌ها */
+      background: #f5f5f5;          /* رنگ پس‌زمینه */
+    }
+
+    /* کارت سفید وسط صفحه */
+    .card {
+      background: white;            /* رنگ پس‌زمینه کارت */
+      padding: 20px;                /* فاصله داخلی */
+      border-radius: 12px;          /* گرد کردن گوشه‌ها */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* سایه */
+      margin-top: 20px;             /* فاصله از بالا */
+    }
+
+    /* استایل دکمه‌ها */
+    button {
+      padding: 10px 20px;           /* فاصله داخلی */
+      margin: 10px;                 /* فاصله بیرونی */
+      border: none;                 /* حذف کادر پیش‌فرض */
+      border-radius: 8px;           /* گوشه گرد */
+      background: #0088cc;          /* رنگ آبی */
+      color: white;                 /* رنگ متن */
+      font-size: 16px;              /* اندازه متن */
+      cursor: pointer;              /* تغییر شکل موس */
+    }
+
+    /* افکت وقتی موس روی دکمه میره */
+    button:hover {
+      opacity: 0.9;                 /* کمی محو شود */
+    }
+  </style>
 </head>
 
 <body>
 
-  <h2>وب‌اپ ایتا 🚀</h2>
-  <button onclick="startApp()">شروع</button>
+<!-- عنوان اصلی صفحه -->
+<h2>🚀 وب‌اپ من</h2>
 
-  <script>
-    function startApp() {
-      // تمام صفحه شدن
-      Eitaa.WebApp.expand();
+<!-- یک کارت برای نمایش اطلاعات -->
+<div class="card">
 
-      // پیام هشدار
-      Eitaa.WebApp.showAlert("وب‌اپ با موفقیت اجرا شد ✅");
+  <!-- این متن بعداً با جاوااسکریپت تغییر می‌کند -->
+  <p id="welcome">در حال بارگذاری...</p>
+
+  <!-- دکمه برای نمایش شناسه کاربر -->
+  <button onclick="showUserId()">نمایش شناسه کاربر</button>
+
+  <!-- دکمه برای بستن وب‌اپ -->
+  <button onclick="closeApp()">بستن برنامه</button>
+
+</div>
+
+<script>
+
+  // وقتی صفحه کاملاً لود شد این کد اجرا می‌شود
+  document.addEventListener("DOMContentLoaded", function () {
+
+    // وب‌اپ را تمام‌صفحه می‌کند
+    Eitaa.WebApp.expand();
+
+    // گرفتن اطلاعات کاربر از ایتا
+    let user = Eitaa.WebApp.initDataUnsafe.user;
+
+    // اگر کاربر وجود داشت
+    if (user) {
+
+      // متن خوش‌آمدگویی را با نام کاربر جایگزین می‌کنیم
+      document.getElementById("welcome").innerText =
+        "سلام " + user.first_name + " 👋 خوش آمدی!";
+
+    } else {
+
+      // اگر کاربر شناسایی نشد
+      document.getElementById("welcome").innerText =
+        "کاربر شناسایی نشد";
     }
+  });
 
-function startApp() {
-  Eitaa.WebApp.expand();
+  // این تابع وقتی دکمه «نمایش شناسه کاربر» زده شود اجرا می‌شود
+  function showUserId() {
 
-  let user = Eitaa.WebApp.initDataUnsafe.user;
+    // گرفتن اطلاعات کاربر
+    let user = Eitaa.WebApp.initDataUnsafe.user;
 
-  if (user) {
-    Eitaa.WebApp.showAlert("سلام " + user.first_name + " 👋");
-  } else {
-    Eitaa.WebApp.showAlert("کاربر شناسایی نشد");
+    // اگر کاربر وجود داشت
+    if (user) {
+
+      // نمایش یک پنجره هشدار با شناسه عددی کاربر
+      Eitaa.WebApp.showAlert("شناسه شما: " + user.id);
+    }
   }
-}
-  </script>
+
+  // این تابع وب‌اپ را می‌بندد
+  function closeApp() {
+
+    // بستن برنامه داخل ایتا
+    Eitaa.WebApp.close();
+  }
+
+</script>
 
 </body>
 </html>
