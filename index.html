@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>اولین وب‌اپ من</title>
+
+  <!-- لود کردن JsSDK ایتا -->
+  <script src="https://developer.eitaa.com/eitaa-web-app.js"></script>
+</head>
+
+<body>
+
+  <h2>وب‌اپ ایتا 🚀</h2>
+  <button onclick="startApp()">شروع</button>
+
+  <script>
+    function startApp() {
+      // تمام صفحه شدن
+      Eitaa.WebApp.expand();
+
+      // پیام هشدار
+      Eitaa.WebApp.showAlert("وب‌اپ با موفقیت اجرا شد ✅");
+    }
+  </script>
+
+</body>
+</html>
