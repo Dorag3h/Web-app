@@ -21,6 +21,18 @@
       // پیام هشدار
       Eitaa.WebApp.showAlert("وب‌اپ با موفقیت اجرا شد ✅");
     }
+
+function startApp() {
+  Eitaa.WebApp.expand();
+
+  let user = Eitaa.WebApp.initDataUnsafe.user;
+
+  if (user) {
+    Eitaa.WebApp.showAlert("سلام " + user.first_name + " 👋");
+  } else {
+    Eitaa.WebApp.showAlert("کاربر شناسایی نشد");
+  }
+}
   </script>
 
 </body>
